@@ -2,7 +2,7 @@ pipeline{
 	agent any
 	environment {
         registry = "thunderkill/supersimpledockerwebsitetest"
-        registryCredential = 'dockerhub'
+        registryCredential = 'docker-credentials'
         dockerImage = ''
 		DOCKERHUB_CREDENTIALS=credentials('docker-credentials')
 	}
