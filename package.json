@@ -1,0 +1,19 @@
+{
+  "name": "super-simple-docker-website-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "deno run --allow-net server.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Thunderkill/super-simple-docker-website-test.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Thunderkill/super-simple-docker-website-test/issues"
+  },
+  "homepage": "https://github.com/Thunderkill/super-simple-docker-website-test#readme"
+}
