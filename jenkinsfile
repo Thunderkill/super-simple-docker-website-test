@@ -11,8 +11,12 @@ pipeline{
 		}
         stage('Deploy our image') { 
             steps { 
-                withDockerRegistry([ credentialsId: "docker-credentials", url: "" ]) {
-                    sh  "docker push $registry:latest" 
+                withCredentials([usernamePassword(credentialsId: 'docker-credentials', usernameVariable: 'HUB_USER', passwordVariable: 'HUB_TOKEN')]) {                      
+                    sh '''
+                        docker login -u $HUB_USER -p $HUB_TOKEN 
+                        docker image tag $registry:latest $registry:latest
+                        docker image push $registry:latest
+                    '''
                 }
             }
         }
