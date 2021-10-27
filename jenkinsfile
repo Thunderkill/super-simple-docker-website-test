@@ -2,25 +2,18 @@ pipeline{
 	agent any
 	environment {
         registry = "thunderkill/supersimpledockerwebsitetest"
-        registryCredential = 'docker-credentials'
-        dockerImage = ''
-		DOCKERHUB_CREDENTIALS=credentials('docker-credentials')
 	}
 	stages {
 		stage('Build') {
-			steps{
-                script {
-                    dockerImage = docker.build registry + ":latest"
-                }
+            steps {
+                sh "docker build -t $registry:latest ."
             }
 		}
         stage('Deploy our image') { 
             steps { 
-                script { 
-                    docker.withRegistry( '', registryCredential ) { 
-                        dockerImage.push() 
-                    }
-                } 
+                withDockerRegistry([ credentialsId: "docker-credentials", url: "" ]) {
+                    sh  "docker push $registry:latest" 
+                }
             }
         }
 	}
