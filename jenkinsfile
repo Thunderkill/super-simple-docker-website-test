@@ -8,7 +8,6 @@ pipeline{
             steps {
                 sh '''
                     docker build -t $container:latest .
-                    docker save $container
                 '''
             }
 		}
