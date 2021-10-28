@@ -6,7 +6,10 @@ pipeline{
 	stages {
 		stage('Build') {
             steps {
-                sh "docker build -t $container:latest ."
+                sh '''
+                    docker build -t $container:latest .
+                    docker save $container
+                '''
             }
 		}
 	}
