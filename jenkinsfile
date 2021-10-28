@@ -1,30 +1,28 @@
 pipeline{
 	agent any
 	environment {
-        registry = "thunderkill/supersimpledockerwebsitetest"
+        container = "supersimpledockerwebsitetest"
+        registry = "http://registry:5000/"
 	}
 	stages {
 		stage('Build') {
             steps {
-                sh "docker build -t $registry:latest ."
+                sh "docker build -t $registry$container:latest ."
             }
 		}
         stage('Deploy our image') { 
             steps { 
-                withCredentials([usernamePassword(credentialsId: 'docker-credentials', usernameVariable: 'HUB_USER', passwordVariable: 'HUB_TOKEN')]) {                      
-                    sh '''
-                        docker login -u $HUB_USER -p $HUB_TOKEN 
-                        docker image tag $registry:latest $registry:latest
-                        docker image push $registry:latest
-                    '''
-                }
+                sh '''
+                    docker image tag $registry$container:latest $registry$container:latest
+                    docker image push $registry$container:latest
+                '''
             }
         }
 	}
 
 	post {
 		always {
-            sh "docker rmi $registry:latest"
+            sh "docker rmi $registry$container:latest"
 		}
 	}
 }
