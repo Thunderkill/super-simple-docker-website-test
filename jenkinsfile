@@ -14,7 +14,7 @@ pipeline{
             steps { 
                 sh '''
                     docker image tag $registry$container:latest $registry$container:latest
-                    docker image push $registry$container:latest
+                    docker image push --insecure-registry $registry$container:latest
                 '''
             }
         }
